@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const { MongoClient } = require("mongodb");
 const cors = require("cors");
+const path = require('path');
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -9,7 +10,7 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static("frontend")); // 👈 Serve frontend
+app.use(express.static(path.join(__dirname,'frontend'))); // 👈 Serve frontend
 
 const client = new MongoClient(process.env.MONGO_URI);
 let db;
