@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram Clone</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" />
+    <input type="text" placeholder="Username, email or mobile number" class="textField" />
+    <input type="password" placeholder="Password" class="textField" />
+    <button id="logIn">Log in</button>
+    <a href="#" id="forgotPswd">Forgot password?</a>
+    <button id="newAccount">Create new account</button>
+  </main>
+
+  <script>
+    document.getElementById("logIn").addEventListener("click", async () => {
+      const username = document.querySelectorAll(".textField")[0].value;
+      const password = document.querySelectorAll(".textField")[1].value;
+
+      const res = await fetch("http://localhost:3000/storeUser", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await res.json();
+      alert(data.message);
+    });
+  </script>
+</body>
+</html>
