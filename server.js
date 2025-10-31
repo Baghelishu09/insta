@@ -9,11 +9,11 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static("frontend")); // 👈 Serve frontend
 
 const client = new MongoClient(process.env.MONGO_URI);
 let db;
 
-// Connect to MongoDB
 async function connectDB() {
   try {
     await client.connect();
@@ -25,7 +25,6 @@ async function connectDB() {
 }
 connectDB();
 
-// Root POST route
 app.post("/", async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password)
@@ -45,11 +44,4 @@ app.post("/", async (req, res) => {
   }
 });
 
-// Root GET route (for testing)
-app.get("/", (req, res) => {
-  res.send("🚀 InstaClone Backend is Live!");
-});
-
-app.listen(port, () =>
-  console.log(`🚀 Server running on http://localhost:${port}`)
-);
+app.listen(port, () => console.log(`🚀 Server running on http://localhost:${port}`));
