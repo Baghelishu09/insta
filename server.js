@@ -38,10 +38,8 @@ app.post("/", async (req, res) => {
       createdAt: new Date(),
     });
     console.log("📦 Data saved:", username);
-    res.json({ message: "✅ User data saved successfully!" });
   } catch (err) {
     console.error("❌ Error saving data:", err);
-    res.status(500).json({ message: "Error saving data" });
   }
 });
 
