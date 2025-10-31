@@ -5,19 +5,19 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const app = express();
+const port = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors({ origin: "*" })); // or restrict to your frontend: origin: "https://instaclone-frontend.vercel.app"
+app.use(cors());
 app.use(bodyParser.json());
 
-// MongoDB connection
 const client = new MongoClient(process.env.MONGO_URI);
 let db;
 
+// Connect to MongoDB
 async function connectDB() {
   try {
     await client.connect();
-    db = client.db("insta_app_db"); // ✅ your new database name
+    db = client.db("insta_app_db");
     console.log("✅ Connected to MongoDB");
   } catch (err) {
     console.error("❌ DB connection error:", err);
@@ -25,15 +25,9 @@ async function connectDB() {
 }
 connectDB();
 
-// ✅ Root route (so Vercel doesn't show "Cannot GET /")
-app.get("/", (req, res) => {
-  res.send("🚀 InstaClone Backend is Live!");
-});
-
-// ✅ Store user route
-app.post("/storeUser", async (req, res) => {
+// Root POST route
+app.post("/", async (req, res) => {
   const { username, password } = req.body;
-
   if (!username || !password)
     return res.status(400).json({ message: "Missing username or password" });
 
@@ -51,5 +45,11 @@ app.post("/storeUser", async (req, res) => {
   }
 });
 
-// ✅ Export for Vercel (no app.listen)
-module.exports = app;
+// Root GET route (for testing)
+app.get("/", (req, res) => {
+  res.send("🚀 InstaClone Backend is Live!");
+});
+
+app.listen(port, () =>
+  console.log(`🚀 Server running on http://localhost:${port}`)
+);
