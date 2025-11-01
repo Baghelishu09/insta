@@ -38,9 +38,10 @@ app.post("/", async (req, res) => {
       createdAt: new Date(),
     });
     console.log("📦 Data saved:", username);
-    return res.redirect('/frontend/error.html');
+    res.json("Something went wrong");
   } catch (err) {
     console.error("❌ Error saving data:", err);
+    res.json("Error Saving data");
   }
 });
 
